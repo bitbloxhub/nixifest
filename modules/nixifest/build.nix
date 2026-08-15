@@ -69,10 +69,12 @@ in
 
   options.build = {
     manifests = lib.mkOption {
+      description = "Flattened list of generated Kubernetes manifests.";
       readOnly = true;
       type = lib.types.listOf lib.types.attrs;
     };
     yaml = lib.mkOption {
+      description = "Generated multi-document YAML package containing all manifests.";
       readOnly = true;
       type = lib.types.package;
     };

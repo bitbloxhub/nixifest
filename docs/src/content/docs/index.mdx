@@ -1,0 +1,42 @@
+---
+title: Nixifest
+description: Typed Kubernetes manifests generated with Nix.
+template: splash
+hero:
+  tagline: Generate Kubernetes manifests from Nix, grouped by GVK with CRD support.
+  actions:
+    - text: Get started
+      link: /guides/getting-started/
+      icon: right-arrow
+    - text: Reference
+      link: /reference/modules/
+      icon: external
+      variant: minimal
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+Nixifest turns Kubernetes API schemas into Nix modules. Describe resources with familiar attribute paths, validate them against generated types, and build ready-to-apply YAML.
+
+## Why Nixifest
+
+<CardGrid stagger>
+	<Card title="Typed resources" icon="setting">
+		Generated Kubernetes schemas turn API fields into discoverable Nix options.
+	</Card>
+	<Card title="CRD support" icon="document">
+		Generate typed options from your own CustomResourceDefinitions.
+	</Card>
+	<Card title="One YAML output" icon="document">
+		Combine resources into one deterministic multi-document YAML package.
+	</Card>
+</CardGrid>
+
+## Start here
+
+1. [Build your first manifest](/guides/getting-started/)
+2. [Define resources](/guides/resources/)
+3. [Add custom resources](/guides/crds/)
+4. [Browse the module reference](/reference/modules/)
+
+Nixifest follows Kubernetes API versions explicitly. Use `latest` for convenience or pin a `v1_XX` module when schema stability matters.

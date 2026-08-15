@@ -24,6 +24,7 @@ in
   imports = generated;
 
   options.build.crds = lib.mkOption {
+    description = "Generated Nix modules for CustomResourceDefinitions.";
     readOnly = true;
     type = lib.types.listOf lib.types.package;
   };

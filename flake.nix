@@ -33,6 +33,13 @@
       inputs.flake-compat.follows = "";
     };
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nuschtos-search = {
+      url = "github:NuschtOS/search";
+      inputs = {
+        nix-index-database.follows = "";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";

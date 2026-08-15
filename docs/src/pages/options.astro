@@ -1,0 +1,51 @@
+---
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro'
+---
+
+<StarlightPage
+	frontmatter={{
+		title: 'Options',
+		tableOfContents: false,
+		pagefind: false,
+		editUrl: false,
+		prev: false,
+		next: false,
+		lastUpdated: false,
+	}}
+>
+	<iframe
+		class="options-search"
+		src="/options/search/"
+		title="Nixifest options"
+	/>
+</StarlightPage>
+
+<style is:global>
+	main > .content-panel:first-of-type {
+		display: none;
+	}
+
+	main {
+		padding: 0 !important;
+	}
+
+	main > .content-panel {
+		padding: 0;
+	}
+
+	main > .content-panel > .sl-container {
+		max-width: none;
+		margin: 0;
+	}
+
+	.sl-markdown-content {
+		height: calc(100dvh - var(--sl-nav-height));
+	}
+
+	.options-search {
+		display: block;
+		width: 100%;
+		height: 100%;
+		border: 0;
+	}
+</style>
