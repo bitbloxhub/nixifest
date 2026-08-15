@@ -31,9 +31,10 @@ in
             resource'
             // {
               inherit apiVersion kind;
-              metadata = (resource'.metadata or { }) // {
+              metadata = {
                 inherit name;
-              };
+              }
+              // (resource'.metadata or { });
             }
           ) resources
         ) kinds
