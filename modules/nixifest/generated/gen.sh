@@ -13,6 +13,7 @@ typegen=$(nix build "$repo_root#typegen" --no-link --print-out-paths)
 
 declare -a releases=()
 declare -a pids=()
+latest_minor=
 
 for minor in $(seq "$first_minor" 99); do
 	if ! version=$(curl --fail --silent --show-error --retry 3 "https://dl.k8s.io/release/stable-1.${minor}.txt" 2>/dev/null); then
@@ -23,7 +24,16 @@ for minor in $(seq "$first_minor" 99); do
 		exit 1
 	fi
 	releases+=("${minor}:${version}")
+	latest_minor=$minor
 done
+
+format_file() {
+	local file=$1
+	printf 'formatting %s\n' "${file##*/}"
+	nixfmt "$file"
+	deadnix --edit "$file"
+	statix fix "$file"
+}
 
 generate() {
 	local minor=$1
@@ -46,6 +56,7 @@ generate() {
 		cat "$raw_output"
 	} >"$output"
 	rm "$raw_output"
+	format_file "$output"
 }
 
 for release in "${releases[@]}"; do
@@ -67,27 +78,8 @@ done
 		IFS=: read -r minor _ <<<"$release"
 		printf '  v1_%s = ./v1_%s.nix;\n' "$minor" "$minor"
 	done
+	printf '  latest = ./v1_%s.nix;\n' "$latest_minor"
 	printf '%s\n' '}'
 } >"$staging_dir/default.nix"
-
-format_file() {
-    local file=$1
-    printf 'formatting %s\n' "${file##*/}"
-    nixfmt "$file"
-    deadnix --edit "$file"
-    statix fix "$file"
-}
-formatter_pids=()
-for file in "$staging_dir"/*.nix; do
-    format_file "$file" &
-    formatter_pids+=("$!")
-    if ((${#formatter_pids[@]} >= jobs)); then
-        wait "${formatter_pids[0]}"
-        formatter_pids=("${formatter_pids[@]:1}")
-    fi
-done
-for pid in "${formatter_pids[@]}"; do
-    wait "$pid"
-done
 
 cp "$staging_dir"/*.nix "$output_dir"/
