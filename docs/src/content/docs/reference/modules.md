@@ -20,4 +20,4 @@ Use `latest` to follow the newest generated schema. Pin a version when schema ch
 imports = [ inputs.nixifest.modules.nixifest.v1_36 ];
 ```
 
-Versioned modules provide typed options for Kubernetes resources from that API schema. Custom-resource options are added separately when CRD files are passed through `specialArgs.crds`; see [Custom resources](/guides/crds/).
+Versioned modules provide typed options for Kubernetes resources from that API schema. Custom-resource options are added by importing modules generated with `nixifest-typegen.importCRDs`; typically, provide the typegen package to modules through `specialArgs`. See [Custom resources](/guides/crds/).

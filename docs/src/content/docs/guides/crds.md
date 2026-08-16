@@ -3,32 +3,45 @@ title: Use custom resources
 description: Generate typed Nix options from Kubernetes CustomResourceDefinitions.
 ---
 
-Give Nixifest one or more CRD YAML files through `specialArgs.crds`. During evaluation it generates and imports typed Nix options for each served version.
+Pass Nixifest's typegen package through `specialArgs` so any module can generate and import typed options from CRD YAML files.
 
-CRD input may be a multi-document YAML file. Nixifest skips non-CRD documents. Each `CustomResourceDefinition` document must use `apiextensions.k8s.io/v1`, and every served version in its `spec.versions` must provide a schema at `schema.openAPIV3Schema`.
+CRD input may be a multi-document YAML file. Nixifest skips non-CRD documents. Each `CustomResourceDefinition` document must use `apiextensions.k8s.io/v1`, and every served version in `spec.versions` must provide a schema at `schema.openAPIV3Schema`.
 
 ```nix
 { inputs, pkgs, ... }:
-
+let
+  nixifest-typegen = inputs.nixifest.packages.${pkgs.stdenv.hostPlatform.system}.typegen;
+in
 inputs.nixifest.lib.eval {
   specialArgs = {
-    inherit pkgs inputs;
-    crds = [ ./widget-crd.yaml ];
+    inherit pkgs nixifest-typegen;
   };
 
   modules = [
-    {
-      imports = [ inputs.nixifest.modules.nixifest.latest ];
-
-      resources."example.com/v1".Widget.demo = {
-        metadata.namespace = "default";
-        spec.size = 3;
-      };
-    }
+    inputs.nixifest.modules.nixifest.latest
+    ./widgets.nix
   ];
-};
+}
 ```
 
-The example uses a local CRD file. For a remote CRD, replace the path with a pinned `fetchurl` expression containing its URL and hash.
+Then, `widgets.nix` can import CRD schemas without direct access to flake inputs:
 
-The generated options are available immediately in the same evaluation. Set `validation.strict = true` to validate custom resources against the generated schema.
+```nix
+{ nixifest-typegen, ... }:
+{
+  imports = [
+    (nixifest-typegen.importCRDs ./widget-crd.yaml)
+  ];
+
+  resources."example.com/v1".Widget.demo = {
+    metadata.namespace = "default";
+    spec.size = 3;
+  };
+}
+```
+
+`importCRDs` generates an importable Nix module containing typed options for every served CRD version. Passing `nixifest-typegen` through `specialArgs` makes the helper available to any module in the evaluation.
+
+For remote CRDs, pass a pinned `fetchurl` path containing its URL and hash.
+
+Set `validation.strict = true` to validate custom resources against the generated schema.

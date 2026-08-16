@@ -18,29 +18,28 @@
       ...
     }:
     {
-      packages.search =
-        inputs'.nuschtos-search.packages.mkSearch {
-          optionsJSON = "${
-            (pkgs.nixosOptionsDoc {
-                inherit
-                  (
-                    (self.lib.eval {
-                      modules = [
-                        {
-                          imports = [ self.modules.nixifest.latest ];
-                          validation.strict = true;
-                        }
-                      ];
-                    })
-                  )
-                  options
-                  ;
-                warningsAreErrors = false;
-              }).optionsJSON
-          }/share/doc/nixos/options.json";
-          baseHref = "/options/search/";
-          title = "Nixifest Options";
-          urlPrefix = "https://github.com/bitbloxhub/nixifest/blob/main/";
-        };
+      packages.search = inputs'.nuschtos-search.packages.mkSearch {
+        optionsJSON = "${
+          (pkgs.nixosOptionsDoc {
+            inherit
+              (
+                (self.lib.eval {
+                  modules = [
+                    {
+                      imports = [ self.modules.nixifest.latest ];
+                      validation.strict = true;
+                    }
+                  ];
+                })
+              )
+              options
+              ;
+            warningsAreErrors = false;
+          }).optionsJSON
+        }/share/doc/nixos/options.json";
+        baseHref = "/options/search/";
+        title = "Nixifest Options";
+        urlPrefix = "https://github.com/bitbloxhub/nixifest/blob/main/";
+      };
     };
 }

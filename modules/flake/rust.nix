@@ -41,7 +41,22 @@
         inputs'.crate2nix.packages.default
       ];
 
-      packages.typegen = typegenCargoWorkspace.rootCrate.build;
+      packages.typegen = typegenCargoWorkspace.rootCrate.build.overrideAttrs (old: {
+        passthru = (old.passthru or { }) // {
+          importCRDs =
+            crd:
+            (pkgs.runCommand "nixifest-crd-types.nix"
+              {
+                nativeBuildInputs = [ typegenCargoWorkspace.rootCrate.build ];
+              }
+              ''
+                nixifest-typegen crd \
+                  --input ${toString crd} \
+                  --output "$out"
+              ''
+            ).outPath;
+        };
+      });
 
       treefmt = {
         programs.rustfmt = {

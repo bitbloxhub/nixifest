@@ -1,22 +1,24 @@
 {
   fetchurl,
-  self,
   pkgs,
+  self,
+  self',
   ...
 }:
+let
+  nixifest-typegen = self'.packages.typegen;
+in
 self.lib.eval {
-  specialArgs = {
-    inherit pkgs;
-    crds = [
-      (fetchurl {
-        url = "https://github.com/cert-manager/cert-manager/releases/download/v1.21.1/cert-manager.crds.yaml";
-        hash = "sha256-oTg74Chi3SgC5oEPGd0fR4RVDzNv9OsneI6EIwL3aXc=";
-      })
-    ];
-  };
+  specialArgs = { inherit pkgs; };
   modules = [
     {
-      imports = [ self.modules.nixifest.v1_36 ];
+      imports = [
+        self.modules.nixifest.v1_36
+        (nixifest-typegen.importCRDs (fetchurl {
+          url = "https://github.com/cert-manager/cert-manager/releases/download/v1.21.1/cert-manager.crds.yaml";
+          hash = "sha256-oTg74Chi3SgC5oEPGd0fR4RVDzNv9OsneI6EIwL3aXc=";
+        }))
+      ];
 
       validation.strict = true;
 
