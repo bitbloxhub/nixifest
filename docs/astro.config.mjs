@@ -18,7 +18,6 @@ export default defineConfig({
 			],
 			customCss: ['./src/styles/custom.css'],
 			sidebar: [
-				{ label: 'Options', link: '/options/' },
 				{
 					label: 'Guides',
 					items: [
@@ -29,7 +28,12 @@ export default defineConfig({
 				},
 				{
 					label: 'Reference',
-					items: [{ autogenerate: { directory: 'reference' } }],
+					items: [
+						{ label: 'Modules', slug: 'reference/modules' },
+						{ label: 'Resource options', slug: 'reference/resources' },
+						{ label: 'Build outputs', slug: 'reference/outputs' },
+						{ label: 'Option search', link: '/options/' },
+					],
 				},
 			],
 		}),

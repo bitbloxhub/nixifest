@@ -1,26 +1,23 @@
 ---
-title: Module reference
-description: Core Nixifest modules and outputs.
+title: Modules
+description: Select and import generated Kubernetes schema modules.
 ---
 
-## Generated Kubernetes modules
+Nixifest publishes one module for each generated Kubernetes minor version under `inputs.nixifest.modules.nixifest`.
 
-`inputs.nixifest.modules.nixifest.v1_27` through newest generated version expose typed Kubernetes resource options. `inputs.nixifest.modules.nixifest.latest` points to newest generated module.
+```nix
+{ inputs, ... }:
+{
+  imports = [ inputs.nixifest.modules.nixifest.latest ];
+}
+```
 
-Pin a version for reproducible schema behavior. Use `latest` when tracking newest Kubernetes release is intentional.
+## Select a version
 
-## Resource options
+Use `latest` to follow the newest generated schema. Pin a version when schema changes should be deliberate:
 
-- `resources.<apiVersion>.<kind>.<name>`: define one resource.
-- `metadata.name`: overrides the logical resource name when set.
-- `validation.strict`: apply generated schema validation to built-in Kubernetes resources and CRDs.
+```nix
+imports = [ inputs.nixifest.modules.nixifest.v1_36 ];
+```
 
-Strict mode rejects unknown fields and validates generated types and schema constraints during evaluation. Without it, resource attributes remain free-form.
-
-## Build outputs
-
-- `build.manifests`: read-only list of evaluated Kubernetes manifests.
-- `build.yaml`: read-only package containing all manifests as a multi-document YAML file.
-- `build.crds`: read-only list of generated CRD type packages.
-
-YAML document filenames use `<apiVersion>-<kind>-<metadata.name>.yaml`.
+Versioned modules provide typed options for Kubernetes resources from that API schema. Custom-resource options are added separately when CRD files are passed through `specialArgs.crds`; see [Custom resources](/guides/crds/).

@@ -2,22 +2,16 @@
 title: Getting started
 description: Build your first Kubernetes manifest with Nixifest.
 ---
+Nixifest turns Kubernetes API schemas into typed Nix module options, then builds one YAML file from your resource definitions.
 
-Nixifest is a Nix module. Add it as a flake input, import a generated Kubernetes module, define resources, then evaluate `config.build.yaml`.
+## 1. Define a manifest
 
-## 1. Add Nixifest to your flake
-
-```nix
-inputs.nixifest.url = "github:bitbloxhub/nixifest";
-```
-
-Create `manifest.nix` in consuming flake:
+Create `manifest.nix`:
 
 ```nix
 { inputs, ... }:
 {
   imports = [ inputs.nixifest.modules.nixifest.latest ];
-
   validation.strict = true;
 
   resources."apps/v1".Deployment.hello = {
@@ -39,32 +33,41 @@ Create `manifest.nix` in consuming flake:
 }
 ```
 
-`latest` points to newest generated Kubernetes minor. Pin `v1_36` when reproducible schema selection matters.
+The resource path identifies API version and kind. `hello` supplies the default name. See [Resources](/guides/resources/) for the mapping in detail.
 
+## 2. Evaluate and package the result
 
-## 2. Evaluate the module
-
-Evaluate the module from your flake or another Nix expression:
+Add Nixifest and Nixpkgs to `flake.nix`, then expose `config.build.yaml` as a package:
 
 ```nix
-inputs.nixifest.lib.eval {
-  specialArgs = { inherit pkgs inputs; };
-  modules = [ ./manifest.nix ];
+{
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixifest.url = "github:bitbloxhub/nixifest";
+  };
+
+  outputs = inputs@{ nixpkgs, nixifest, ... }:
+    let
+      system = "x86_64-linux";
+      pkgs = nixpkgs.legacyPackages.${system};
+    in {
+      packages.${system}.manifest = (nixifest.lib.eval {
+        specialArgs = { inherit pkgs inputs; };
+        modules = [ ./manifest.nix ];
+      }).config.build.yaml;
+    };
 }
 ```
 
-`inputs.nixifest.lib.eval` returns standard Nix module results, including `config`, `options`, and the build outputs.
+`pkgs` supplies Nix build helpers. `inputs.nixifest.lib.eval` returns standard Nix module results; `config.build.yaml` is the generated multi-document YAML file.
 
+Use `latest` for newest generated schema. Pin a version when reproducibility matters; see the [Modules reference](/reference/modules/).
 
-## 3. Build YAML
+## 3. Build and deploy
 
-Expose the result as a flake package:
-
-```nix
-packages.manifest = (inputs.nixifest.lib.eval {
-  specialArgs = { inherit pkgs inputs; };
-  modules = [ ./manifest.nix ];
-}).config.build.yaml;
+```console
+$ nix build .#manifest
+$ kubectl apply -f result
 ```
 
-Build it with `nix build .#manifest`. The output is a multi-document YAML file suitable for `kubectl apply -f`.
+If you use GitOps, publish the YAML where your controller can fetch it—for example, as an OCI artifact referenced by Flux’s `OCIRepository`. See [Build outputs](/reference/outputs/) for other `config.build` values.

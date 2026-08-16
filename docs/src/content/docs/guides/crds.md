@@ -3,11 +3,9 @@ title: Use custom resources
 description: Generate typed Nix options from Kubernetes CustomResourceDefinitions.
 ---
 
-Nixifest can read a CRD, generate a Nix module for its versions, and add that module to your evaluation.
+Give Nixifest one or more CRD YAML files through `specialArgs.crds`. During evaluation it generates and imports typed Nix options for each served version.
 
-## Provide CRD files
-
-Pass CRD YAML files through `specialArgs.crds`. The CRD generator runs during evaluation and produces typed resource options.
+CRD input may be a multi-document YAML file. Nixifest skips non-CRD documents. Each `CustomResourceDefinition` document must use `apiextensions.k8s.io/v1`, and every served version in its `spec.versions` must provide a schema at `schema.openAPIV3Schema`.
 
 ```nix
 { inputs, pkgs, ... }:
@@ -32,3 +30,5 @@ inputs.nixifest.lib.eval {
 ```
 
 The example uses a local CRD file. For a remote CRD, replace the path with a pinned `fetchurl` expression containing its URL and hash.
+
+The generated options are available immediately in the same evaluation. Set `validation.strict = true` to validate custom resources against the generated schema.

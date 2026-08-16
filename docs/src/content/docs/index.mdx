@@ -16,27 +16,19 @@ hero:
 
 import { Card, CardGrid } from '@astrojs/starlight/components';
 
-Nixifest turns Kubernetes API schemas into Nix modules. Describe resources with familiar attribute paths, validate them against generated types, and build ready-to-apply YAML.
+Nixifest turns Kubernetes API schemas into typed Nix module options. Define resources in Nix, validate them during evaluation, and produce one multi-document YAML file for deployment or GitOps.
 
-## Why Nixifest
+## What Nixifest provides
 
 <CardGrid stagger>
 	<Card title="Typed resources" icon="setting">
 		Generated Kubernetes schemas turn API fields into discoverable Nix options.
 	</Card>
-	<Card title="CRD support" icon="document">
-		Generate typed options from your own CustomResourceDefinitions.
+	<Card title="Custom resources" icon="document">
+		Bring your own CRDs and generate typed options during evaluation.
 	</Card>
 	<Card title="One YAML output" icon="document">
-		Combine resources into one deterministic multi-document YAML package.
+		Combine resources into one deterministic multi-document YAML file.
 	</Card>
 </CardGrid>
 
-## Start here
-
-1. [Build your first manifest](/guides/getting-started/)
-2. [Define resources](/guides/resources/)
-3. [Add custom resources](/guides/crds/)
-4. [Browse the module reference](/reference/modules/)
-
-Nixifest follows Kubernetes API versions explicitly. Use `latest` for convenience or pin a `v1_XX` module when schema stability matters.

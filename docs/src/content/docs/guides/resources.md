@@ -1,42 +1,40 @@
 ---
-title: Define resources
-description: Define typed Kubernetes resources with Nixifest.
+title: Resources
+description: Map Kubernetes resources to Nix attributes.
 ---
 
-Resources are grouped by API version, kind, and logical name. The logical name supplies a default `metadata.name`, while explicit metadata takes precedence.
+Nixifest groups resources by API version, kind, and name:
+
+```text
+resources.<apiVersion>.<kind>.<name>
+```
+
+For example, this defines a ConfigMap named `app`:
 
 ```nix
 { inputs, ... }:
 {
   imports = [ inputs.nixifest.modules.nixifest.latest ];
 
-  validation.strict = true;
-
-  resources."apps/v1".Deployment.web = {
+  resources."v1".ConfigMap.app = {
     metadata.namespace = "default";
-    metadata.name = "frontend";
-
-    spec = {
-      replicas = 2;
-      selector.matchLabels.app = "frontend";
-      template = {
-        metadata.labels.app = "frontend";
-        spec.containers = [
-          {
-            name = "nginx";
-            image = "nginx:1.31-alpine";
-          }
-        ];
-      };
-    };
+    data.MESSAGE = "hello";
   };
 }
 ```
 
-During build evaluation, Nixifest recursively removes null-valued attributes, adds `apiVersion` and `kind`, and exposes the resulting manifests through `config.build.manifests` and `config.build.yaml`.
+Nixifest adds `apiVersion`, `kind`, and `metadata.name` from the resource path. The resulting manifest contains:
 
-## Validate resources
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app
+  namespace: default
+data:
+  MESSAGE: hello
+```
 
-`validation.strict = true` applies generated schema validation to every resource: built-in Kubernetes APIs and custom resources. It rejects unknown fields and validates generated field types, enums, and other schema constraints during Nix evaluation.
+Set `metadata.name` explicitly when it should differ from the final path key. Set `validation.strict = true` to validate fields against the generated schema; see the [Resource options reference](/reference/resources/).
 
-With strict mode disabled, Nixifest accepts free-form resource attributes. That can help with unsupported or rapidly changing APIs, but moves validation to Kubernetes after YAML generation.
+Null-valued attributes are removed before output. See [Build outputs](/reference/outputs/) for the generated manifest and YAML values.
