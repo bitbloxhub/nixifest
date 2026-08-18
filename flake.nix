@@ -27,7 +27,22 @@
       url = "github:NotAShelf/flint";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    github-actions-nix = {
+      url = "github:synapdeck/github-actions-nix";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
     import-tree.url = "github:vic/import-tree";
+    junix = {
+      url = "gitlab:moduon/junix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        precommix.follows = "precommix";
+        systems.follows = "systems";
+      };
+    };
     make-shell = {
       url = "github:nicknovitski/make-shell";
       inputs.flake-compat.follows = "";
@@ -36,10 +51,20 @@
     nuschtos-search = {
       url = "github:NuschtOS/search";
       inputs = {
+        flake-utils.inputs.systems.follows = "systems";
         nix-index-database.follows = "";
         nixpkgs.follows = "nixpkgs";
       };
     };
+    precommix = {
+      url = "gitlab:moduon/precommix/v0.36.0";
+      inputs = {
+        blueprint.inputs.systems.follows = "systems";
+        devshell.follows = "crate2nix/devshell";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+    systems.url = "github:nix-systems/triplet";
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
