@@ -37,7 +37,7 @@
             warningsAreErrors = false;
           }).optionsJSON
         }/share/doc/nixos/options.json";
-        baseHref = "/options/search/";
+        baseHref = "/nixifest/options/search/";
         title = "Nixifest Options";
         urlPrefix = "https://github.com/bitbloxhub/nixifest/blob/main/";
       };
