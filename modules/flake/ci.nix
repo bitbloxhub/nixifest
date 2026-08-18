@@ -169,12 +169,16 @@
               {
                 name = "Upload to Pages";
                 uses = "actions/upload-pages-artifact@v5.0.0";
-                with_.path = "result/dist/";
+                with_ = {
+                  name = "github-pages-\${{ github.run_attempt }}";
+                  path = "result/dist/";
+                };
               }
               {
                 name = "Deploy Pages";
                 id = "deployment";
                 uses = "actions/deploy-pages@v5.0.0";
+                with_.artifact_name = "github-pages-\${{ github.run_attempt }}";
               }
             ];
           };
