@@ -6,6 +6,8 @@ import catppuccin from '@catppuccin/starlight';
 
 // https://astro.build/config
 export default defineConfig({
+	site: 'https://bitbloxhub.github.io',
+	base: '/nixifest',
 	integrations: [
 		starlight({
 			title: 'Nixifest',
