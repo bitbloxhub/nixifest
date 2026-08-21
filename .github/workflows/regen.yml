@@ -38,7 +38,7 @@ jobs:
 
           git commit -m "chore: regenerate Kubernetes types"
 
-          git push \
+          git -c http.https://github.com/.extraheader= push \
             "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" \
             HEAD:${GITHUB_REF_NAME}
 name: Regenerate Kubernetes types
