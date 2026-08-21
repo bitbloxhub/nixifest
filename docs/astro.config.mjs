@@ -1,13 +1,17 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
-import { nuschtSearch } from './integrations/nuscht-search';
+import { prefixBaseLinks } from './integrations/prefix-base-links'
+import { nuschtSearch } from './integrations/nuscht-search'
 import catppuccin from '@catppuccin/starlight';
 
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://bitbloxhub.github.io',
 	base: '/nixifest',
+	markdown: {
+		remarkPlugins: [[prefixBaseLinks, { base: '/nixifest' }]],
+	},
 	integrations: [
 		starlight({
 			title: 'Nixifest',
