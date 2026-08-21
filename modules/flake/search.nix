@@ -40,6 +40,7 @@
         baseHref = "/nixifest/options/search/";
         title = "Nixifest Options";
         urlPrefix = "https://github.com/bitbloxhub/nixifest/blob/main/";
+        hashLocation = true;
       };
     };
 }
