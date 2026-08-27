@@ -9,5 +9,6 @@
   v1_34 = ./v1_34.nix;
   v1_35 = ./v1_35.nix;
   v1_36 = ./v1_36.nix;
-  latest = ./v1_36.nix;
+  v1_37 = ./v1_37.nix;
+  latest = ./v1_37.nix;
 }
