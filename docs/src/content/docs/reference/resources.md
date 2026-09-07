@@ -6,12 +6,13 @@ description: Resource paths, names, metadata, and validation.
 Resources use this option path:
 
 ```text
-resources.<apiVersion>.<kind>.<name>
+resources.<group>.<version>.<kind>.<name>
 ```
 
 Each segment has a role:
 
-- `<apiVersion>` selects the Kubernetes API, such as `v1` or `apps/v1`.
+- `<group>` selects the Kubernetes API group; use `core` for ungrouped APIs.
+- `<version>` selects the API version, such as `v1`.
 - `<kind>` selects the resource kind, such as `ConfigMap` or `Deployment`.
 - `<name>` identifies the resource in the Nix module and supplies `metadata.name` by default.
 

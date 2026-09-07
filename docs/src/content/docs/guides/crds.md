@@ -33,7 +33,7 @@ Then, `widgets.nix` can import CRD schemas without direct access to flake inputs
     (nixifest-typegen.importCRDs ./widget-crd.yaml)
   ];
 
-  resources."example.com/v1".Widget.demo = {
+  resources."example.com".v1.Widget.demo = {
     metadata.namespace = "default";
     spec.size = 3;
   };

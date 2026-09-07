@@ -22,7 +22,7 @@ self.lib.eval {
 
       validation.strict = true;
 
-      resources."cert-manager.io/v1".Issuer.letsencrypt = {
+      resources."cert-manager.io".v1.Issuer.letsencrypt = {
         metadata.name = "letsencrypt";
         spec.acme = {
           server = "https://acme-v02.api.letsencrypt.org/directory";

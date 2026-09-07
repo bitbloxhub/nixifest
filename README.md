@@ -8,7 +8,7 @@ Example:
   imports = [ inputs.nixifest.modules.nixifest.latest ];
   validation.strict = true;
 
-  resources."apps/v1".Deployment.hello = {
+  resources.apps.v1.Deployment.hello = {
     metadata.namespace = "default";
     spec = {
       replicas = 1;

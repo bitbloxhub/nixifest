@@ -20,24 +20,28 @@ in
   config.build = {
     manifests = lib.flatten (
       lib.mapAttrsToList (
-        apiVersion: kinds:
+        group: versions:
         lib.mapAttrsToList (
-          kind: resources:
+          version: kinds:
           lib.mapAttrsToList (
-            name: resource:
-            let
-              resource' = removeNulls resource;
-            in
-            resource'
-            // {
-              inherit apiVersion kind;
-              metadata = {
-                inherit name;
+            kind: resources:
+            lib.mapAttrsToList (
+              name: resource:
+              let
+                resource' = removeNulls resource;
+                apiVersion = if group == "core" then version else "${group}/${version}";
+              in
+              resource'
+              // {
+                inherit apiVersion kind;
+                metadata = {
+                  inherit name;
+                }
+                // (resource'.metadata or { });
               }
-              // (resource'.metadata or { });
-            }
-          ) resources
-        ) kinds
+            ) resources
+          ) kinds
+        ) versions
       ) config.resources
     );
     yaml =

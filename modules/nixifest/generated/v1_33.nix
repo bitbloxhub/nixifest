@@ -1,7 +1,7 @@
 # Kubernetes v1.33.13
 { lib, ... }: {
   options.resources = {
-    "admissionregistration.k8s.io/v1"."MutatingWebhookConfiguration" = lib.mkOption {
+    "admissionregistration.k8s.io".v1."MutatingWebhookConfiguration" = lib.mkOption {
       default = { };
       description = "MutatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and may change the object.";
       type = lib.types.attrsOf (
@@ -392,7 +392,7 @@
         }
       );
     };
-    "admissionregistration.k8s.io/v1"."ValidatingAdmissionPolicy" = lib.mkOption {
+    "admissionregistration.k8s.io".v1."ValidatingAdmissionPolicy" = lib.mkOption {
       default = { };
       description = "ValidatingAdmissionPolicy describes the definition of an admission validation policy that accepts or rejects an object without changing it.";
       type = lib.types.attrsOf (
@@ -944,7 +944,7 @@
         }
       );
     };
-    "admissionregistration.k8s.io/v1"."ValidatingAdmissionPolicyBinding" = lib.mkOption {
+    "admissionregistration.k8s.io".v1."ValidatingAdmissionPolicyBinding" = lib.mkOption {
       default = { };
       description = "ValidatingAdmissionPolicyBinding binds the ValidatingAdmissionPolicy with paramerized resources. ValidatingAdmissionPolicyBinding and parameter CRDs together define how cluster administrators configure policies for clusters.\n\nFor a given admission request, each binding will cause its policy to be evaluated N times, where N is 1 for policies/bindings that don't use params, otherwise N is the number of parameters selected by the binding.\n\nThe CEL expressions of a policy must have a computed CEL cost below the maximum CEL budget. Each evaluation of the policy is given an independent CEL cost budget. Adding/removing policies, bindings, or params can not affect whether a given (policy, binding, param) combination is within its own CEL budget.";
       type = lib.types.attrsOf (
@@ -1373,7 +1373,7 @@
         }
       );
     };
-    "admissionregistration.k8s.io/v1"."ValidatingWebhookConfiguration" = lib.mkOption {
+    "admissionregistration.k8s.io".v1."ValidatingWebhookConfiguration" = lib.mkOption {
       default = { };
       description = "ValidatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and object without changing it.";
       type = lib.types.attrsOf (
@@ -1759,7 +1759,7 @@
         }
       );
     };
-    "admissionregistration.k8s.io/v1alpha1"."MutatingAdmissionPolicy" = lib.mkOption {
+    "admissionregistration.k8s.io".v1alpha1."MutatingAdmissionPolicy" = lib.mkOption {
       default = { };
       description = "MutatingAdmissionPolicy describes the definition of an admission mutation policy that mutates the object coming into admission chain.";
       type = lib.types.attrsOf (
@@ -2229,7 +2229,7 @@
         }
       );
     };
-    "admissionregistration.k8s.io/v1alpha1"."MutatingAdmissionPolicyBinding" = lib.mkOption {
+    "admissionregistration.k8s.io".v1alpha1."MutatingAdmissionPolicyBinding" = lib.mkOption {
       default = { };
       description = "MutatingAdmissionPolicyBinding binds the MutatingAdmissionPolicy with parametrized resources. MutatingAdmissionPolicyBinding and the optional parameter resource together define how cluster administrators configure policies for clusters.\n\nFor a given admission request, each binding will cause its policy to be evaluated N times, where N is 1 for policies/bindings that don't use params, otherwise N is the number of parameters selected by the binding. Each evaluation is constrained by a [runtime cost budget](https://kubernetes.io/docs/reference/using-api/cel/#runtime-cost-budget).\n\nAdding/removing policies, bindings, or params can not affect whether a given (policy, binding, param) combination is within its own CEL budget.";
       type = lib.types.attrsOf (
@@ -2653,7 +2653,7 @@
         }
       );
     };
-    "admissionregistration.k8s.io/v1beta1"."ValidatingAdmissionPolicy" = lib.mkOption {
+    "admissionregistration.k8s.io".v1beta1."ValidatingAdmissionPolicy" = lib.mkOption {
       default = { };
       description = "ValidatingAdmissionPolicy describes the definition of an admission validation policy that accepts or rejects an object without changing it.";
       type = lib.types.attrsOf (
@@ -3205,7 +3205,7 @@
         }
       );
     };
-    "admissionregistration.k8s.io/v1beta1"."ValidatingAdmissionPolicyBinding" = lib.mkOption {
+    "admissionregistration.k8s.io".v1beta1."ValidatingAdmissionPolicyBinding" = lib.mkOption {
       default = { };
       description = "ValidatingAdmissionPolicyBinding binds the ValidatingAdmissionPolicy with paramerized resources. ValidatingAdmissionPolicyBinding and parameter CRDs together define how cluster administrators configure policies for clusters.\n\nFor a given admission request, each binding will cause its policy to be evaluated N times, where N is 1 for policies/bindings that don't use params, otherwise N is the number of parameters selected by the binding.\n\nThe CEL expressions of a policy must have a computed CEL cost below the maximum CEL budget. Each evaluation of the policy is given an independent CEL cost budget. Adding/removing policies, bindings, or params can not affect whether a given (policy, binding, param) combination is within its own CEL budget.";
       type = lib.types.attrsOf (
@@ -3634,7 +3634,7 @@
         }
       );
     };
-    "apiextensions.k8s.io/v1"."CustomResourceDefinition" = lib.mkOption {
+    "apiextensions.k8s.io".v1."CustomResourceDefinition" = lib.mkOption {
       default = { };
       description = "CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format <.spec.name>.<.spec.group>.";
       type = lib.types.attrsOf (
@@ -4401,7 +4401,7 @@
         }
       );
     };
-    "apiregistration.k8s.io/v1"."APIService" = lib.mkOption {
+    "apiregistration.k8s.io".v1."APIService" = lib.mkOption {
       default = { };
       description = "APIService represents a server for a particular GroupVersion. Name must be \"version.group\".";
       type = lib.types.attrsOf (
@@ -4674,7 +4674,7 @@
         }
       );
     };
-    "apps/v1"."ControllerRevision" = lib.mkOption {
+    "apps".v1."ControllerRevision" = lib.mkOption {
       default = { };
       description = "ControllerRevision implements an immutable snapshot of state data. Clients are responsible for serializing and deserializing the objects that contain their internal state. Once a ControllerRevision has been successfully created, it can not be updated. The API Server will fail validation of all requests that attempt to mutate the Data field. ControllerRevisions may, however, be deleted. Note that, due to its use by both the DaemonSet and StatefulSet controllers for update and rollback, this object is beta. However, it may be subject to name and representation changes in future releases, and clients should not depend on its stability. It is primarily for internal use by controllers.";
       type = lib.types.attrsOf (
@@ -4848,7 +4848,7 @@
         }
       );
     };
-    "apps/v1"."DaemonSet" = lib.mkOption {
+    "apps".v1."DaemonSet" = lib.mkOption {
       default = { };
       description = "DaemonSet represents the configuration of a daemon set.";
       type = lib.types.attrsOf (
@@ -12167,7 +12167,7 @@
         }
       );
     };
-    "apps/v1"."Deployment" = lib.mkOption {
+    "apps".v1."Deployment" = lib.mkOption {
       default = { };
       description = "Deployment enables declarative updates for Pods and ReplicaSets.";
       type = lib.types.attrsOf (
@@ -19505,7 +19505,7 @@
         }
       );
     };
-    "apps/v1"."ReplicaSet" = lib.mkOption {
+    "apps".v1."ReplicaSet" = lib.mkOption {
       default = { };
       description = "ReplicaSet ensures that a specified number of pod replicas are running at any given time.";
       type = lib.types.attrsOf (
@@ -26770,7 +26770,7 @@
         }
       );
     };
-    "apps/v1"."StatefulSet" = lib.mkOption {
+    "apps".v1."StatefulSet" = lib.mkOption {
       default = { };
       description = "StatefulSet represents a set of pods with consistent identities. Identities are defined as:\n  - Network: A single stable DNS and hostname.\n  - Storage: As many VolumeClaims as requested.\n\nThe StatefulSet guarantees that a given network identity will always map to the same storage identity.";
       type = lib.types.attrsOf (
@@ -34592,7 +34592,7 @@
         }
       );
     };
-    "authentication.k8s.io/v1"."SelfSubjectReview" = lib.mkOption {
+    "authentication.k8s.io".v1."SelfSubjectReview" = lib.mkOption {
       default = { };
       description = "SelfSubjectReview contains the user information that the kube-apiserver has about the user making this request. When using impersonation, users will receive the user info of the user being impersonated.  If impersonation or request header authentication is used, any extra keys will have their case ignored and returned as lowercase.";
       type = lib.types.attrsOf (
@@ -34797,7 +34797,7 @@
         }
       );
     };
-    "authentication.k8s.io/v1"."TokenReview" = lib.mkOption {
+    "authentication.k8s.io".v1."TokenReview" = lib.mkOption {
       default = { };
       description = "TokenReview attempts to authenticate a token to a known user. Note: TokenReview requests may be cached by the webhook token authenticator plugin in the kube-apiserver.";
       type = lib.types.attrsOf (
@@ -35034,7 +35034,7 @@
         }
       );
     };
-    "authorization.k8s.io/v1"."LocalSubjectAccessReview" = lib.mkOption {
+    "authorization.k8s.io".v1."LocalSubjectAccessReview" = lib.mkOption {
       default = { };
       description = "LocalSubjectAccessReview checks whether or not a user or group can perform an action in a given namespace. Having a namespace scoped resource makes it much easier to grant namespace scoped policy that includes permissions checking.";
       type = lib.types.attrsOf (
@@ -35400,7 +35400,7 @@
         }
       );
     };
-    "authorization.k8s.io/v1"."SelfSubjectAccessReview" = lib.mkOption {
+    "authorization.k8s.io".v1."SelfSubjectAccessReview" = lib.mkOption {
       default = { };
       description = "SelfSubjectAccessReview checks whether or the current user can perform an action.  Not filling in a spec.namespace means \"in all namespaces\".  Self is a special case, because users should always be able to check whether they can perform an action";
       type = lib.types.attrsOf (
@@ -35746,7 +35746,7 @@
         }
       );
     };
-    "authorization.k8s.io/v1"."SelfSubjectRulesReview" = lib.mkOption {
+    "authorization.k8s.io".v1."SelfSubjectRulesReview" = lib.mkOption {
       default = { };
       description = "SelfSubjectRulesReview enumerates the set of actions the current user can perform within a namespace. The returned list of actions may be incomplete depending on the server's authorization mode, and any errors experienced during the evaluation. SelfSubjectRulesReview should be used by UIs to show/hide actions, or to quickly let an end user reason about their permissions. It should NOT Be used by external systems to drive authorization decisions as this raises confused deputy, cache lifetime/revocation, and correctness concerns. SubjectAccessReview, and LocalAccessReview are the correct way to defer authorization decisions to the API server.";
       type = lib.types.attrsOf (
@@ -35988,7 +35988,7 @@
         }
       );
     };
-    "authorization.k8s.io/v1"."SubjectAccessReview" = lib.mkOption {
+    "authorization.k8s.io".v1."SubjectAccessReview" = lib.mkOption {
       default = { };
       description = "SubjectAccessReview checks whether or not a user or group can perform an action.";
       type = lib.types.attrsOf (
@@ -36354,7 +36354,7 @@
         }
       );
     };
-    "autoscaling/v1"."HorizontalPodAutoscaler" = lib.mkOption {
+    "autoscaling".v1."HorizontalPodAutoscaler" = lib.mkOption {
       default = { };
       description = "configuration of a horizontal pod autoscaler.";
       type = lib.types.attrsOf (
@@ -36596,7 +36596,7 @@
         }
       );
     };
-    "autoscaling/v2"."HorizontalPodAutoscaler" = lib.mkOption {
+    "autoscaling".v2."HorizontalPodAutoscaler" = lib.mkOption {
       default = { };
       description = "HorizontalPodAutoscaler is the configuration for a horizontal pod autoscaler, which automatically manages the replica count of any resource implementing the scale subresource based on the metrics specified.";
       type = lib.types.attrsOf (
@@ -37824,7 +37824,7 @@
         }
       );
     };
-    "batch/v1"."CronJob" = lib.mkOption {
+    "batch".v1."CronJob" = lib.mkOption {
       default = { };
       description = "CronJob represents the configuration of a single cron job.";
       type = lib.types.attrsOf (
@@ -45438,7 +45438,7 @@
         }
       );
     };
-    "batch/v1"."Job" = lib.mkOption {
+    "batch".v1."Job" = lib.mkOption {
       default = { };
       description = "Job represents the configuration of a single job.";
       type = lib.types.attrsOf (
@@ -52889,7 +52889,7 @@
         }
       );
     };
-    "certificates.k8s.io/v1"."CertificateSigningRequest" = lib.mkOption {
+    "certificates.k8s.io".v1."CertificateSigningRequest" = lib.mkOption {
       default = { };
       description = "CertificateSigningRequest objects provide a mechanism to obtain x509 certificates by submitting a certificate signing request, and having it asynchronously approved and issued.\n\nKubelets use this API to obtain:\n 1. client certificates to authenticate to kube-apiserver (with the \"kubernetes.io/kube-apiserver-client-kubelet\" signerName).\n 2. serving certificates for TLS endpoints kube-apiserver can connect to securely (with the \"kubernetes.io/kubelet-serving\" signerName).\n\nThis API can be used to request client certificates to authenticate to kube-apiserver (with the \"kubernetes.io/kube-apiserver-client\" signerName), or to obtain certificates from custom non-Kubernetes signers.";
       type = lib.types.attrsOf (
@@ -53154,7 +53154,7 @@
         }
       );
     };
-    "certificates.k8s.io/v1alpha1"."ClusterTrustBundle" = lib.mkOption {
+    "certificates.k8s.io".v1alpha1."ClusterTrustBundle" = lib.mkOption {
       default = { };
       description = "ClusterTrustBundle is a cluster-scoped container for X.509 trust anchors (root certificates).\n\nClusterTrustBundle objects are considered to be readable by any authenticated user in the cluster, because they can be mounted by pods using the `clusterTrustBundle` projection.  All service accounts have read access to ClusterTrustBundles by default.  Users who only have namespace-level access to a cluster can read ClusterTrustBundles by impersonating a serviceaccount that they have access to.\n\nIt can be optionally associated with a particular assigner, in which case it contains one valid set of trust anchors for that signer. Signers may have multiple associated ClusterTrustBundles; each is an independent set of trust anchors for that signer. Admission control is used to enforce that only users with permissions on the signer can create or modify the corresponding bundle.";
       type = lib.types.attrsOf (
@@ -53335,7 +53335,7 @@
         }
       );
     };
-    "certificates.k8s.io/v1beta1"."ClusterTrustBundle" = lib.mkOption {
+    "certificates.k8s.io".v1beta1."ClusterTrustBundle" = lib.mkOption {
       default = { };
       description = "ClusterTrustBundle is a cluster-scoped container for X.509 trust anchors (root certificates).\n\nClusterTrustBundle objects are considered to be readable by any authenticated user in the cluster, because they can be mounted by pods using the `clusterTrustBundle` projection.  All service accounts have read access to ClusterTrustBundles by default.  Users who only have namespace-level access to a cluster can read ClusterTrustBundles by impersonating a serviceaccount that they have access to.\n\nIt can be optionally associated with a particular assigner, in which case it contains one valid set of trust anchors for that signer. Signers may have multiple associated ClusterTrustBundles; each is an independent set of trust anchors for that signer. Admission control is used to enforce that only users with permissions on the signer can create or modify the corresponding bundle.";
       type = lib.types.attrsOf (
@@ -53516,7 +53516,7 @@
         }
       );
     };
-    "coordination.k8s.io/v1"."Lease" = lib.mkOption {
+    "coordination.k8s.io".v1."Lease" = lib.mkOption {
       default = { };
       description = "Lease defines a lease concept.";
       type = lib.types.attrsOf (
@@ -53726,7 +53726,7 @@
         }
       );
     };
-    "coordination.k8s.io/v1alpha2"."LeaseCandidate" = lib.mkOption {
+    "coordination.k8s.io".v1alpha2."LeaseCandidate" = lib.mkOption {
       default = { };
       description = "LeaseCandidate defines a candidate for a Lease object. Candidates are created such that coordinated leader election will pick the best leader from the list of candidates.";
       type = lib.types.attrsOf (
@@ -53928,7 +53928,7 @@
         }
       );
     };
-    "coordination.k8s.io/v1beta1"."LeaseCandidate" = lib.mkOption {
+    "coordination.k8s.io".v1beta1."LeaseCandidate" = lib.mkOption {
       default = { };
       description = "LeaseCandidate defines a candidate for a Lease object. Candidates are created such that coordinated leader election will pick the best leader from the list of candidates.";
       type = lib.types.attrsOf (
@@ -54130,7 +54130,7 @@
         }
       );
     };
-    "discovery.k8s.io/v1"."EndpointSlice" = lib.mkOption {
+    "discovery.k8s.io".v1."EndpointSlice" = lib.mkOption {
       default = { };
       description = "EndpointSlice represents a set of service endpoints. Most EndpointSlices are created by the EndpointSlice controller to represent the Pods selected by Service objects. For a given service there may be multiple EndpointSlice objects which must be joined to produce the full set of endpoints; you can find all of the slices for a given service by listing EndpointSlices in the service's namespace whose `kubernetes.io/service-name` label contains the service's name.";
       type = lib.types.attrsOf (
@@ -54476,7 +54476,7 @@
         }
       );
     };
-    "events.k8s.io/v1"."Event" = lib.mkOption {
+    "events.k8s.io".v1."Event" = lib.mkOption {
       default = { };
       description = "Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system. Events have a limited retention time and triggers and messages may evolve with time.  Event consumers should not rely on the timing of an event with a given Reason reflecting a consistent underlying trigger, or the continued existence of events with that Reason.  Events should be treated as informative, best-effort, supplemental data.";
       type = lib.types.attrsOf (
@@ -54818,7 +54818,7 @@
         }
       );
     };
-    "flowcontrol.apiserver.k8s.io/v1"."FlowSchema" = lib.mkOption {
+    "flowcontrol.apiserver.k8s.io".v1."FlowSchema" = lib.mkOption {
       default = { };
       description = "FlowSchema defines the schema of a group of flows. Note that a flow is made up of a set of inbound API requests with similar attributes and is identified by a pair of strings: the name of the FlowSchema and a \"flow distinguisher\".";
       type = lib.types.attrsOf (
@@ -55195,7 +55195,7 @@
         }
       );
     };
-    "flowcontrol.apiserver.k8s.io/v1"."PriorityLevelConfiguration" = lib.mkOption {
+    "flowcontrol.apiserver.k8s.io".v1."PriorityLevelConfiguration" = lib.mkOption {
       default = { };
       description = "PriorityLevelConfiguration represents the configuration of a priority level.";
       type = lib.types.attrsOf (
@@ -55505,7 +55505,7 @@
         }
       );
     };
-    "internal.apiserver.k8s.io/v1alpha1"."StorageVersion" = lib.mkOption {
+    "internal.apiserver.k8s.io".v1alpha1."StorageVersion" = lib.mkOption {
       default = { };
       description = "Storage version of a specific resource.";
       type = lib.types.attrsOf (
@@ -55756,7 +55756,7 @@
         }
       );
     };
-    "networking.k8s.io/v1"."IPAddress" = lib.mkOption {
+    "networking.k8s.io".v1."IPAddress" = lib.mkOption {
       default = { };
       description = "IPAddress represents a single IP of a single IP Family. The object is designed to be used by APIs that operate on IP addresses. The object is used by the Service core API for allocation of IP addresses. An IP address can be represented in different formats, to guarantee the uniqueness of the IP, the name of the object is the IP address in canonical format, four decimal digits separated by dots suppressing leading zeros for IPv4 and the representation defined by RFC 5952 for IPv6. Valid: 192.168.1.5 or 2001:db8::1 or 2001:db8:aaaa:bbbb:cccc:dddd:eeee:1 Invalid: 10.01.2.3 or 2001:db8:0:0:0::1";
       type = lib.types.attrsOf (
@@ -55956,7 +55956,7 @@
         }
       );
     };
-    "networking.k8s.io/v1"."Ingress" = lib.mkOption {
+    "networking.k8s.io".v1."Ingress" = lib.mkOption {
       default = { };
       description = "Ingress is a collection of rules that allow inbound connections to reach the endpoints defined by a backend. An Ingress can be configured to give services externally-reachable urls, load balance traffic, terminate SSL, offer name based virtual hosting etc.";
       type = lib.types.attrsOf (
@@ -56401,7 +56401,7 @@
         }
       );
     };
-    "networking.k8s.io/v1"."IngressClass" = lib.mkOption {
+    "networking.k8s.io".v1."IngressClass" = lib.mkOption {
       default = { };
       description = "IngressClass represents the class of the Ingress, referenced by the Ingress Spec. The `ingressclass.kubernetes.io/is-default-class` annotation can be used to indicate that an IngressClass should be considered default. When a single IngressClass resource has this annotation set to true, new Ingress resources without a class specified will be assigned this default class.";
       type = lib.types.attrsOf (
@@ -56614,7 +56614,7 @@
         }
       );
     };
-    "networking.k8s.io/v1"."NetworkPolicy" = lib.mkOption {
+    "networking.k8s.io".v1."NetworkPolicy" = lib.mkOption {
       default = { };
       description = "NetworkPolicy describes what network traffic is allowed for a set of Pods";
       type = lib.types.attrsOf (
@@ -57141,7 +57141,7 @@
         }
       );
     };
-    "networking.k8s.io/v1"."ServiceCIDR" = lib.mkOption {
+    "networking.k8s.io".v1."ServiceCIDR" = lib.mkOption {
       default = { };
       description = "ServiceCIDR defines a range of IP addresses using CIDR format (e.g. 192.168.0.0/24 or 2001:db2::/64). This range is used to allocate ClusterIPs to Service objects.";
       type = lib.types.attrsOf (
@@ -57368,7 +57368,7 @@
         }
       );
     };
-    "networking.k8s.io/v1beta1"."IPAddress" = lib.mkOption {
+    "networking.k8s.io".v1beta1."IPAddress" = lib.mkOption {
       default = { };
       description = "IPAddress represents a single IP of a single IP Family. The object is designed to be used by APIs that operate on IP addresses. The object is used by the Service core API for allocation of IP addresses. An IP address can be represented in different formats, to guarantee the uniqueness of the IP, the name of the object is the IP address in canonical format, four decimal digits separated by dots suppressing leading zeros for IPv4 and the representation defined by RFC 5952 for IPv6. Valid: 192.168.1.5 or 2001:db8::1 or 2001:db8:aaaa:bbbb:cccc:dddd:eeee:1 Invalid: 10.01.2.3 or 2001:db8:0:0:0::1";
       type = lib.types.attrsOf (
@@ -57568,7 +57568,7 @@
         }
       );
     };
-    "networking.k8s.io/v1beta1"."ServiceCIDR" = lib.mkOption {
+    "networking.k8s.io".v1beta1."ServiceCIDR" = lib.mkOption {
       default = { };
       description = "ServiceCIDR defines a range of IP addresses using CIDR format (e.g. 192.168.0.0/24 or 2001:db2::/64). This range is used to allocate ClusterIPs to Service objects.";
       type = lib.types.attrsOf (
@@ -57795,7 +57795,7 @@
         }
       );
     };
-    "node.k8s.io/v1"."RuntimeClass" = lib.mkOption {
+    "node.k8s.io".v1."RuntimeClass" = lib.mkOption {
       default = { };
       description = "RuntimeClass defines a class of container runtime supported in the cluster. The RuntimeClass is used to determine which container runtime is used to run all containers in a pod. RuntimeClasses are manually defined by a user or cluster provisioner, and referenced in the PodSpec. The Kubelet is responsible for resolving the RuntimeClassName reference before running the pod.  For more details, see https://kubernetes.io/docs/concepts/containers/runtime-class/";
       type = lib.types.attrsOf (
@@ -58038,7 +58038,7 @@
         }
       );
     };
-    "policy/v1"."PodDisruptionBudget" = lib.mkOption {
+    "policy".v1."PodDisruptionBudget" = lib.mkOption {
       default = { };
       description = "PodDisruptionBudget is an object to define the max disruption that can be caused to a collection of pods";
       type = lib.types.attrsOf (
@@ -58351,7 +58351,7 @@
         }
       );
     };
-    "rbac.authorization.k8s.io/v1"."ClusterRole" = lib.mkOption {
+    "rbac.authorization.k8s.io".v1."ClusterRole" = lib.mkOption {
       default = { };
       description = "ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding or ClusterRoleBinding.";
       type = lib.types.attrsOf (
@@ -58604,7 +58604,7 @@
         }
       );
     };
-    "rbac.authorization.k8s.io/v1"."ClusterRoleBinding" = lib.mkOption {
+    "rbac.authorization.k8s.io".v1."ClusterRoleBinding" = lib.mkOption {
       default = { };
       description = "ClusterRoleBinding references a ClusterRole, but not contain it.  It can reference a ClusterRole in the global namespace, and adds who information via Subject.";
       type = lib.types.attrsOf (
@@ -58818,7 +58818,7 @@
         }
       );
     };
-    "rbac.authorization.k8s.io/v1"."Role" = lib.mkOption {
+    "rbac.authorization.k8s.io".v1."Role" = lib.mkOption {
       default = { };
       description = "Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding.";
       type = lib.types.attrsOf (
@@ -59019,7 +59019,7 @@
         }
       );
     };
-    "rbac.authorization.k8s.io/v1"."RoleBinding" = lib.mkOption {
+    "rbac.authorization.k8s.io".v1."RoleBinding" = lib.mkOption {
       default = { };
       description = "RoleBinding references a role, but does not contain it.  It can reference a Role in the same namespace or a ClusterRole in the global namespace. It adds who information via Subjects and namespace information by which namespace it exists in.  RoleBindings in a given namespace only have effect in that namespace.";
       type = lib.types.attrsOf (
@@ -59233,7 +59233,7 @@
         }
       );
     };
-    "resource.k8s.io/v1alpha3"."DeviceClass" = lib.mkOption {
+    "resource.k8s.io".v1alpha3."DeviceClass" = lib.mkOption {
       default = { };
       description = "DeviceClass is a vendor- or admin-provided resource that contains device configuration and selectors. It can be referenced in the device requests of a claim to apply these presets. Cluster scoped.\n\nThis is an alpha type and requires enabling the DynamicResourceAllocation feature gate.";
       type = lib.types.attrsOf (
@@ -59461,7 +59461,7 @@
         }
       );
     };
-    "resource.k8s.io/v1alpha3"."DeviceTaintRule" = lib.mkOption {
+    "resource.k8s.io".v1alpha3."DeviceTaintRule" = lib.mkOption {
       default = { };
       description = "DeviceTaintRule adds one taint to all devices which match the selector. This has the same effect as if the taint was specified directly in the ResourceSlice by the DRA driver.";
       type = lib.types.attrsOf (
@@ -59714,7 +59714,7 @@
         }
       );
     };
-    "resource.k8s.io/v1alpha3"."ResourceClaim" = lib.mkOption {
+    "resource.k8s.io".v1alpha3."ResourceClaim" = lib.mkOption {
       default = { };
       description = "ResourceClaim describes a request for access to resources in the cluster, for use by workloads. For example, if a workload needs an accelerator device with specific properties, this is how that request is expressed. The status stanza tracks whether this claim has been satisfied and what specific resources have been allocated.\n\nThis is an alpha type and requires enabling the DynamicResourceAllocation feature gate.";
       type = lib.types.attrsOf (
@@ -60473,7 +60473,7 @@
         }
       );
     };
-    "resource.k8s.io/v1alpha3"."ResourceClaimTemplate" = lib.mkOption {
+    "resource.k8s.io".v1alpha3."ResourceClaimTemplate" = lib.mkOption {
       default = { };
       description = "ResourceClaimTemplate is used to produce ResourceClaim objects.\n\nThis is an alpha type and requires enabling the DynamicResourceAllocation feature gate.";
       type = lib.types.attrsOf (
@@ -61071,7 +61071,7 @@
         }
       );
     };
-    "resource.k8s.io/v1alpha3"."ResourceSlice" = lib.mkOption {
+    "resource.k8s.io".v1alpha3."ResourceSlice" = lib.mkOption {
       default = { };
       description = "ResourceSlice represents one or more resources in a pool of similar resources, managed by a common driver. A pool may span more than one ResourceSlice, and exactly how many ResourceSlices comprise a pool is determined by the driver.\n\nAt the moment, the only supported resources are devices with attributes and capacities. Each device in a given pool, regardless of how many ResourceSlices, must have a unique name. The ResourceSlice in which a device gets published may change over time. The unique identifier for a device is the tuple <driver name>, <pool name>, <device name>.\n\nWhenever a driver needs to update a pool, it increments the pool.Spec.Pool.Generation number and updates all ResourceSlices with that new number and new resource definitions. A consumer must only use ResourceSlices with the highest generation number and ignore all others.\n\nWhen allocating all resources in a pool matching certain criteria or when looking for the best solution among several different alternatives, a consumer should check the number of ResourceSlices in a pool (included in each ResourceSlice) to determine whether its view of a pool is complete and if not, should wait until the driver has completed updating the pool.\n\nFor resources that are not local to a node, the node name is not set. Instead, the driver may use a node selector to specify where the devices are available.\n\nThis is an alpha type and requires enabling the DynamicResourceAllocation feature gate.";
       type = lib.types.attrsOf (
@@ -61593,7 +61593,7 @@
         }
       );
     };
-    "resource.k8s.io/v1beta1"."DeviceClass" = lib.mkOption {
+    "resource.k8s.io".v1beta1."DeviceClass" = lib.mkOption {
       default = { };
       description = "DeviceClass is a vendor- or admin-provided resource that contains device configuration and selectors. It can be referenced in the device requests of a claim to apply these presets. Cluster scoped.\n\nThis is an alpha type and requires enabling the DynamicResourceAllocation feature gate.";
       type = lib.types.attrsOf (
@@ -61821,7 +61821,7 @@
         }
       );
     };
-    "resource.k8s.io/v1beta1"."ResourceClaim" = lib.mkOption {
+    "resource.k8s.io".v1beta1."ResourceClaim" = lib.mkOption {
       default = { };
       description = "ResourceClaim describes a request for access to resources in the cluster, for use by workloads. For example, if a workload needs an accelerator device with specific properties, this is how that request is expressed. The status stanza tracks whether this claim has been satisfied and what specific resources have been allocated.\n\nThis is an alpha type and requires enabling the DynamicResourceAllocation feature gate.";
       type = lib.types.attrsOf (
@@ -62580,7 +62580,7 @@
         }
       );
     };
-    "resource.k8s.io/v1beta1"."ResourceClaimTemplate" = lib.mkOption {
+    "resource.k8s.io".v1beta1."ResourceClaimTemplate" = lib.mkOption {
       default = { };
       description = "ResourceClaimTemplate is used to produce ResourceClaim objects.\n\nThis is an alpha type and requires enabling the DynamicResourceAllocation feature gate.";
       type = lib.types.attrsOf (
@@ -63178,7 +63178,7 @@
         }
       );
     };
-    "resource.k8s.io/v1beta1"."ResourceSlice" = lib.mkOption {
+    "resource.k8s.io".v1beta1."ResourceSlice" = lib.mkOption {
       default = { };
       description = "ResourceSlice represents one or more resources in a pool of similar resources, managed by a common driver. A pool may span more than one ResourceSlice, and exactly how many ResourceSlices comprise a pool is determined by the driver.\n\nAt the moment, the only supported resources are devices with attributes and capacities. Each device in a given pool, regardless of how many ResourceSlices, must have a unique name. The ResourceSlice in which a device gets published may change over time. The unique identifier for a device is the tuple <driver name>, <pool name>, <device name>.\n\nWhenever a driver needs to update a pool, it increments the pool.Spec.Pool.Generation number and updates all ResourceSlices with that new number and new resource definitions. A consumer must only use ResourceSlices with the highest generation number and ignore all others.\n\nWhen allocating all resources in a pool matching certain criteria or when looking for the best solution among several different alternatives, a consumer should check the number of ResourceSlices in a pool (included in each ResourceSlice) to determine whether its view of a pool is complete and if not, should wait until the driver has completed updating the pool.\n\nFor resources that are not local to a node, the node name is not set. Instead, the driver may use a node selector to specify where the devices are available.\n\nThis is an alpha type and requires enabling the DynamicResourceAllocation feature gate.";
       type = lib.types.attrsOf (
@@ -63707,7 +63707,7 @@
         }
       );
     };
-    "resource.k8s.io/v1beta2"."DeviceClass" = lib.mkOption {
+    "resource.k8s.io".v1beta2."DeviceClass" = lib.mkOption {
       default = { };
       description = "DeviceClass is a vendor- or admin-provided resource that contains device configuration and selectors. It can be referenced in the device requests of a claim to apply these presets. Cluster scoped.\n\nThis is an alpha type and requires enabling the DynamicResourceAllocation feature gate.";
       type = lib.types.attrsOf (
@@ -63935,7 +63935,7 @@
         }
       );
     };
-    "resource.k8s.io/v1beta2"."ResourceClaim" = lib.mkOption {
+    "resource.k8s.io".v1beta2."ResourceClaim" = lib.mkOption {
       default = { };
       description = "ResourceClaim describes a request for access to resources in the cluster, for use by workloads. For example, if a workload needs an accelerator device with specific properties, this is how that request is expressed. The status stanza tracks whether this claim has been satisfied and what specific resources have been allocated.\n\nThis is an alpha type and requires enabling the DynamicResourceAllocation feature gate.";
       type = lib.types.attrsOf (
@@ -64703,7 +64703,7 @@
         }
       );
     };
-    "resource.k8s.io/v1beta2"."ResourceClaimTemplate" = lib.mkOption {
+    "resource.k8s.io".v1beta2."ResourceClaimTemplate" = lib.mkOption {
       default = { };
       description = "ResourceClaimTemplate is used to produce ResourceClaim objects.\n\nThis is an alpha type and requires enabling the DynamicResourceAllocation feature gate.";
       type = lib.types.attrsOf (
@@ -65310,7 +65310,7 @@
         }
       );
     };
-    "resource.k8s.io/v1beta2"."ResourceSlice" = lib.mkOption {
+    "resource.k8s.io".v1beta2."ResourceSlice" = lib.mkOption {
       default = { };
       description = "ResourceSlice represents one or more resources in a pool of similar resources, managed by a common driver. A pool may span more than one ResourceSlice, and exactly how many ResourceSlices comprise a pool is determined by the driver.\n\nAt the moment, the only supported resources are devices with attributes and capacities. Each device in a given pool, regardless of how many ResourceSlices, must have a unique name. The ResourceSlice in which a device gets published may change over time. The unique identifier for a device is the tuple <driver name>, <pool name>, <device name>.\n\nWhenever a driver needs to update a pool, it increments the pool.Spec.Pool.Generation number and updates all ResourceSlices with that new number and new resource definitions. A consumer must only use ResourceSlices with the highest generation number and ignore all others.\n\nWhen allocating all resources in a pool matching certain criteria or when looking for the best solution among several different alternatives, a consumer should check the number of ResourceSlices in a pool (included in each ResourceSlice) to determine whether its view of a pool is complete and if not, should wait until the driver has completed updating the pool.\n\nFor resources that are not local to a node, the node name is not set. Instead, the driver may use a node selector to specify where the devices are available.\n\nThis is an alpha type and requires enabling the DynamicResourceAllocation feature gate.";
       type = lib.types.attrsOf (
@@ -65829,7 +65829,7 @@
         }
       );
     };
-    "scheduling.k8s.io/v1"."PriorityClass" = lib.mkOption {
+    "scheduling.k8s.io".v1."PriorityClass" = lib.mkOption {
       default = { };
       description = "PriorityClass defines mapping from a priority class name to the priority integer value. The value can be any valid integer.";
       type = lib.types.attrsOf (
@@ -66013,7 +66013,7 @@
         }
       );
     };
-    "storage.k8s.io/v1"."CSIDriver" = lib.mkOption {
+    "storage.k8s.io".v1."CSIDriver" = lib.mkOption {
       default = { };
       description = "CSIDriver captures information about a Container Storage Interface (CSI) volume driver deployed on the cluster. Kubernetes attach detach controller uses this object to determine whether attach is required. Kubelet uses this object to determine whether pod information needs to be passed on mount. CSIDriver objects are non-namespaced.";
       type = lib.types.attrsOf (
@@ -66246,7 +66246,7 @@
         }
       );
     };
-    "storage.k8s.io/v1"."CSINode" = lib.mkOption {
+    "storage.k8s.io".v1."CSINode" = lib.mkOption {
       default = { };
       description = "CSINode holds information about all CSI drivers installed on a node. CSI drivers do not need to create the CSINode object directly. As long as they use the node-driver-registrar sidecar container, the kubelet will automatically populate the CSINode object for the CSI driver as part of kubelet plugin registration. CSINode has the same name as a node. If the object is missing, it means either there are no CSI Drivers available on the node, or the Kubelet version is low enough that it doesn't create this object. CSINode has an OwnerReference that points to the corresponding node object.";
       type = lib.types.attrsOf (
@@ -66455,7 +66455,7 @@
         }
       );
     };
-    "storage.k8s.io/v1"."CSIStorageCapacity" = lib.mkOption {
+    "storage.k8s.io".v1."CSIStorageCapacity" = lib.mkOption {
       default = { };
       description = "CSIStorageCapacity stores the result of one CSI GetCapacity call. For a given StorageClass, this describes the available capacity in a particular topology segment.  This can be used when considering where to instantiate new PersistentVolumes.\n\nFor example this can express things like: - StorageClass \"standard\" has \"1234 GiB\" available in \"topology.kubernetes.io/zone=us-east1\" - StorageClass \"localssd\" has \"10 GiB\" available in \"kubernetes.io/hostname=knode-abc123\"\n\nThe following three cases all imply that no capacity is available for a certain combination: - no object exists with suitable topology and storage class name - such an object exists, but the capacity is unset - such an object exists, but the capacity is zero\n\nThe producer of these objects can decide which approach is more suitable.\n\nThey are consumed by the kube-scheduler when a CSI driver opts into capacity-aware scheduling with CSIDriverSpec.StorageCapacity. The scheduler compares the MaximumVolumeSize against the requested size of pending volumes to filter out unsuitable nodes. If MaximumVolumeSize is unset, it falls back to a comparison against the less precise Capacity. If that is also unset, the scheduler assumes that capacity is insufficient and tries some other node.";
       type = lib.types.attrsOf (
@@ -66684,7 +66684,7 @@
         }
       );
     };
-    "storage.k8s.io/v1"."StorageClass" = lib.mkOption {
+    "storage.k8s.io".v1."StorageClass" = lib.mkOption {
       default = { };
       description = "StorageClass describes the parameters for a class of storage for which PersistentVolumes can be dynamically provisioned.\n\nStorageClasses are non-namespaced; the name of the storage class according to etcd is in ObjectMeta.Name.";
       type = lib.types.attrsOf (
@@ -66910,7 +66910,7 @@
         }
       );
     };
-    "storage.k8s.io/v1"."VolumeAttachment" = lib.mkOption {
+    "storage.k8s.io".v1."VolumeAttachment" = lib.mkOption {
       default = { };
       description = "VolumeAttachment captures the intent to attach or detach the specified volume to/from the specified node.\n\nVolumeAttachment objects are non-namespaced.";
       type = lib.types.attrsOf (
@@ -68290,7 +68290,7 @@
         }
       );
     };
-    "storage.k8s.io/v1alpha1"."VolumeAttributesClass" = lib.mkOption {
+    "storage.k8s.io".v1alpha1."VolumeAttributesClass" = lib.mkOption {
       default = { };
       description = "VolumeAttributesClass represents a specification of mutable volume attributes defined by the CSI driver. The class can be specified during dynamic provisioning of PersistentVolumeClaims, and changed in the PersistentVolumeClaim spec after provisioning.";
       type = lib.types.attrsOf (
@@ -68464,7 +68464,7 @@
         }
       );
     };
-    "storage.k8s.io/v1beta1"."VolumeAttributesClass" = lib.mkOption {
+    "storage.k8s.io".v1beta1."VolumeAttributesClass" = lib.mkOption {
       default = { };
       description = "VolumeAttributesClass represents a specification of mutable volume attributes defined by the CSI driver. The class can be specified during dynamic provisioning of PersistentVolumeClaims, and changed in the PersistentVolumeClaim spec after provisioning.";
       type = lib.types.attrsOf (
@@ -68638,7 +68638,7 @@
         }
       );
     };
-    "storagemigration.k8s.io/v1alpha1"."StorageVersionMigration" = lib.mkOption {
+    "storagemigration.k8s.io".v1alpha1."StorageVersionMigration" = lib.mkOption {
       default = { };
       description = "StorageVersionMigration represents a migration of stored data to the latest storage version.";
       type = lib.types.attrsOf (
@@ -68890,7 +68890,7 @@
         }
       );
     };
-    "v1"."Binding" = lib.mkOption {
+    "core".v1."Binding" = lib.mkOption {
       default = { };
       description = "Binding ties one object to another; for example, a pod is bound to a node by a scheduler.";
       type = lib.types.attrsOf (
@@ -69097,7 +69097,7 @@
         }
       );
     };
-    "v1"."ComponentStatus" = lib.mkOption {
+    "core".v1."ComponentStatus" = lib.mkOption {
       default = { };
       description = "ComponentStatus (and ComponentStatusList) holds the cluster validation info. Deprecated: This API is deprecated in v1.19+";
       type = lib.types.attrsOf (
@@ -69292,7 +69292,7 @@
         }
       );
     };
-    "v1"."ConfigMap" = lib.mkOption {
+    "core".v1."ConfigMap" = lib.mkOption {
       default = { };
       description = "ConfigMap holds configuration data for pods to consume.";
       type = lib.types.attrsOf (
@@ -69472,7 +69472,7 @@
         }
       );
     };
-    "v1"."Endpoints" = lib.mkOption {
+    "core".v1."Endpoints" = lib.mkOption {
       default = { };
       description = "Endpoints is a collection of endpoints that implement the actual service. Example:\n\n\t Name: \"mysvc\",\n\t Subsets: [\n\t   {\n\t     Addresses: [{\"ip\": \"10.10.1.1\"}, {\"ip\": \"10.10.2.2\"}],\n\t     Ports: [{\"name\": \"a\", \"port\": 8675}, {\"name\": \"b\", \"port\": 309}]\n\t   },\n\t   {\n\t     Addresses: [{\"ip\": \"10.10.3.3\"}],\n\t     Ports: [{\"name\": \"a\", \"port\": 93}, {\"name\": \"b\", \"port\": 76}]\n\t   },\n\t]\n\nEndpoints is a legacy API and does not contain information about all Service features. Use discoveryv1.EndpointSlice for complete information about Service endpoints.\n\nDeprecated: This API is deprecated in v1.33+. Use discoveryv1.EndpointSlice.";
       type = lib.types.attrsOf (
@@ -69822,7 +69822,7 @@
         }
       );
     };
-    "v1"."Event" = lib.mkOption {
+    "core".v1."Event" = lib.mkOption {
       default = { };
       description = "Event is a report of an event somewhere in the cluster.  Events have a limited retention time and triggers and messages may evolve with time.  Event consumers should not rely on the timing of an event with a given Reason reflecting a consistent underlying trigger, or the continued existence of events with that Reason.  Events should be treated as informative, best-effort, supplemental data.";
       type = lib.types.attrsOf (
@@ -70161,7 +70161,7 @@
         }
       );
     };
-    "v1"."LimitRange" = lib.mkOption {
+    "core".v1."LimitRange" = lib.mkOption {
       default = { };
       description = "LimitRange sets resource usage limits for each kind of resource in a Namespace.";
       type = lib.types.attrsOf (
@@ -70409,7 +70409,7 @@
         }
       );
     };
-    "v1"."Namespace" = lib.mkOption {
+    "core".v1."Namespace" = lib.mkOption {
       default = { };
       description = "Namespace provides a scope for Names. Use of multiple namespaces is optional.";
       type = lib.types.attrsOf (
@@ -70639,7 +70639,7 @@
         }
       );
     };
-    "v1"."Node" = lib.mkOption {
+    "core".v1."Node" = lib.mkOption {
       default = { };
       description = "Node is a worker node in Kubernetes. Each node will have a unique identifier in the cache (i.e. in etcd).";
       type = lib.types.attrsOf (
@@ -71339,7 +71339,7 @@
         }
       );
     };
-    "v1"."PersistentVolume" = lib.mkOption {
+    "core".v1."PersistentVolume" = lib.mkOption {
       default = { };
       description = "PersistentVolume (PV) is a storage resource provisioned by an administrator. It is analogous to a node. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes";
       type = lib.types.attrsOf (
@@ -72653,7 +72653,7 @@
         }
       );
     };
-    "v1"."PersistentVolumeClaim" = lib.mkOption {
+    "core".v1."PersistentVolumeClaim" = lib.mkOption {
       default = { };
       description = "PersistentVolumeClaim is a user's request for and claim to a persistent volume";
       type = lib.types.attrsOf (
@@ -73091,7 +73091,7 @@
         }
       );
     };
-    "v1"."Pod" = lib.mkOption {
+    "core".v1."Pod" = lib.mkOption {
       default = { };
       description = "Pod is a collection of containers that can run on a host. This resource is created by clients and scheduled onto hosts.";
       type = lib.types.attrsOf (
@@ -81389,7 +81389,7 @@
         }
       );
     };
-    "v1"."PodTemplate" = lib.mkOption {
+    "core".v1."PodTemplate" = lib.mkOption {
       default = { };
       description = "PodTemplate describes a template for creating copies of a predefined pod.";
       type = lib.types.attrsOf (
@@ -88523,7 +88523,7 @@
         }
       );
     };
-    "v1"."ReplicationController" = lib.mkOption {
+    "core".v1."ReplicationController" = lib.mkOption {
       default = { };
       description = "ReplicationController represents the configuration of a replication controller.";
       type = lib.types.attrsOf (
@@ -95751,7 +95751,7 @@
         }
       );
     };
-    "v1"."ResourceQuota" = lib.mkOption {
+    "core".v1."ResourceQuota" = lib.mkOption {
       default = { };
       description = "ResourceQuota sets aggregate quota restrictions enforced per namespace";
       type = lib.types.attrsOf (
@@ -96012,7 +96012,7 @@
         }
       );
     };
-    "v1"."Secret" = lib.mkOption {
+    "core".v1."Secret" = lib.mkOption {
       default = { };
       description = "Secret holds secret data of a certain type. The total bytes of the values in the Data field must be less than MaxSecretSize bytes.";
       type = lib.types.attrsOf (
@@ -96197,7 +96197,7 @@
         }
       );
     };
-    "v1"."Service" = lib.mkOption {
+    "core".v1."Service" = lib.mkOption {
       default = { };
       description = "Service is a named abstraction of software service (for example, mysql) consisting of local port (for example 3306) that the proxy listens on, and the selector that determines which pods will answer requests sent through the proxy.";
       type = lib.types.attrsOf (
@@ -96642,7 +96642,7 @@
         }
       );
     };
-    "v1"."ServiceAccount" = lib.mkOption {
+    "core".v1."ServiceAccount" = lib.mkOption {
       default = { };
       description = "ServiceAccount binds together: * a name, understood by users, and perhaps by peripheral systems, for an identity * a principal that can be authenticated and authorized * a set of secrets";
       type = lib.types.attrsOf (

@@ -18,7 +18,7 @@ in
           if config.validation.strict then
             null
           else
-            types.attrsOf (types.attrsOf (types.attrsOf looseResource));
+            types.attrsOf (types.attrsOf (types.attrsOf (types.attrsOf looseResource)));
       };
     };
     validation.strict = mkEnableOption "strict Kubernetes resource typing";

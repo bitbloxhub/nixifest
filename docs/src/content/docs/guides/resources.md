@@ -3,10 +3,10 @@ title: Resources
 description: Map Kubernetes resources to Nix attributes.
 ---
 
-Nixifest groups resources by API version, kind, and name:
+Nixifest groups resources by group, version, kind, and name:
 
 ```text
-resources.<apiVersion>.<kind>.<name>
+resources.<group>.<version>.<kind>.<name>
 ```
 
 For example, this defines a ConfigMap named `app`:
@@ -16,14 +16,14 @@ For example, this defines a ConfigMap named `app`:
 {
   imports = [ inputs.nixifest.modules.nixifest.latest ];
 
-  resources."v1".ConfigMap.app = {
+  resources.core.v1.ConfigMap.app = {
     metadata.namespace = "default";
     data.MESSAGE = "hello";
   };
 }
 ```
 
-Nixifest adds `apiVersion`, `kind`, and `metadata.name` from the resource path. The resulting manifest contains:
+Nixifest adds `apiVersion`, `kind`, and `metadata.name` from the resource path. The `core` group maps to Kubernetes' ungrouped API versions. The resulting manifest contains:
 
 ```yaml
 apiVersion: v1

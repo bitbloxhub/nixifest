@@ -10,14 +10,21 @@ use crate::normalize::normalize;
 pub fn emit_module(resources: &[ResourceSchema]) -> Result<String> {
     let mut output = String::from("{ lib, ... }: { options.resources = {");
     for resource in resources {
-        let _ = (&resource.group, &resource.version, resource.namespaced);
+        let _ = resource.namespaced;
         let mut schema = normalize(&resource.schema, &resource.definitions)?;
         strip_identity_fields(&mut schema);
-        output.push_str(&format!(
-            " {}.{} = lib.mkOption {{ default = {{ }}; ",
-            nix_string(&resource.api_version),
-            nix_string(&resource.kind),
-        ));
+        let group = if resource.group.is_empty() {
+            "core"
+        } else {
+            resource.group.as_str()
+        };
+        let path = format!(
+            " {}.{}.{}",
+            nix_string(group),
+            resource.version,
+            nix_string(&resource.kind)
+        );
+        output.push_str(&format!("{path} = lib.mkOption {{ default = {{ }}; "));
         if let Some(description) = description(&schema) {
             output.push_str(&format!("description = {}; ", nix_string(description)));
         }
