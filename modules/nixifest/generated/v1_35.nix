@@ -1,4 +1,4 @@
-# Kubernetes v1.35.9
+# Kubernetes v1.35.10
 { lib, ... }: {
   options.resources = {
     "admissionregistration.k8s.io".v1."MutatingWebhookConfiguration" = lib.mkOption {

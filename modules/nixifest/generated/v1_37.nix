@@ -1,4 +1,4 @@
-# Kubernetes v1.37.1
+# Kubernetes v1.37.2
 { lib, ... }: {
   options.resources = {
     "admissionregistration.k8s.io".v1."MutatingAdmissionPolicy" = lib.mkOption {
